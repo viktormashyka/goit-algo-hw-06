@@ -11,37 +11,27 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Створення графа
-G = nx.Graph()
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D', 'E', 'F'],
+    'D': ['B', 'C', 'F'],
+    'E': ['C', 'F', 'G'],
+    'F': ['C', 'D', 'E', 'G'],
+    'G': ['E', 'F']
+}
 
-# Додавання вершин (зупинок)
-stops = ['A', 'B', 'C', 'D', 'E', 'F']
-G.add_nodes_from(stops)
-
-# Додавання ребер (маршрутів між зупинками)
-edges = [
-    ('A', 'B'),
-    ('A', 'C'),
-    ('B', 'C'),
-    ('B', 'D'),
-    ('C', 'D'),
-    ('C', 'E'),
-    ('C', 'F'),
-    ('D', 'F'),
-    ('E', 'F'),
-    ('E', 'G'),
-    ('F', 'G')
-]
-G.add_edges_from(edges)
+# Створення графа на основі списку суміжностей
+G = nx.Graph(graph)
 
 # Візуалізація графа
 plt.figure(figsize=(8, 6))
-pos = nx.spring_layout(G)  # позиції для всіх вершин
+pos = nx.spring_layout(G)
 nx.draw_networkx_nodes(G, pos, node_size=700)
 nx.draw_networkx_edges(G, pos)
 nx.draw_networkx_labels(G, pos, font_size=14)
 plt.title("Транспортна мережа міста")
-plt.axis('off')  # вимкнення осей
+plt.axis('off')
 plt.show()
 
 # Аналіз основних характеристик
